@@ -38,6 +38,8 @@ class Movie {
   final String duration;
   final double rating;
   final String synopsis;
+  final List<String> cast;
+  
 
   const Movie({
     required this.title,
@@ -47,12 +49,13 @@ class Movie {
     required this.duration,
     required this.rating,
     required this.synopsis,
+    required this.cast,
   });
 }
 
 final List<Movie> favoriteMovies = [];
 
-List<String> myTickets = [];
+final List<Map<String, dynamic>> myTickets = [];
 
 bool hasTicket = false;
 
@@ -70,6 +73,12 @@ final List<Movie> movies = [
     rating: 8.8,
     synopsis:
         "Paul Atreides joins the Fremen to seek revenge while becoming the prophesied leader of Arrakis.",
+        cast: [
+  "Timothée Chalamet",
+  "Zendaya",
+  "Rebecca Ferguson",
+  "Austin Butler",
+],
   ),
   Movie(
     title: "Godzilla x Kong",
@@ -82,6 +91,12 @@ final List<Movie> movies = [
     rating: 7.7,
     synopsis:
         "Godzilla and Kong must unite against a new threat hidden inside Hollow Earth.",
+        cast: [
+  "Rebecca Hall",
+  "Dan Stevens",
+  "Brian Tyree Henry",
+  "Kaylee Hottle",
+],
   ),
   Movie(
   title: "Deadpool & Wolverine",
@@ -91,6 +106,12 @@ final List<Movie> movies = [
   duration: "2h 8m",
   rating: 8.3,
   synopsis: "Deadpool teams up with Wolverine to save the multiverse.",
+  cast: [
+  "Ryan Reynolds",
+  "Hugh Jackman",
+  "Emma Corrin",
+  "Matthew Macfadyen",
+],
 ),
 
 Movie(
@@ -101,6 +122,12 @@ Movie(
   duration: "1h 36m",
   rating: 8.1,
   synopsis: "Riley faces new emotions as she enters her teenage years.",
+  cast: [
+  "Amy Poehler",
+  "Maya Hawke",
+  "Ayo Edebiri",
+  "Tony Hale",
+],
 ),
 
 Movie(
@@ -111,6 +138,12 @@ Movie(
   duration: "1h 34m",
   rating: 7.5,
   synopsis: "Po searches for his successor while facing a dangerous villain.",
+  cast: [
+    "Jack Black",
+    "Dustin Hoffman",
+    "Angelina Jolie",
+    "Awkwafina",
+  ],
 ),
 
 Movie(
@@ -121,6 +154,12 @@ Movie(
   duration: "2h 56m",
   rating: 8.4,
   synopsis: "Batman investigates a series of murders committed by the Riddler.",
+  cast: [
+  "Robert Pattinson",
+  "Zoë Kravitz",
+  "Paul Dano",
+  "Jeffrey Wright",
+],
 ),
 
 Movie(
@@ -131,6 +170,12 @@ Movie(
   duration: "2h 28m",
   rating: 8.6,
   synopsis: "Spider-Man seeks Doctor Strange's help after his identity is revealed.",
+  cast: [
+    "Tom Holland",
+    "Zendaya",
+    "Benedict Cumberbatch",
+    "Jacob Batalon",
+  ],
 ),
 
 Movie(
@@ -141,6 +186,12 @@ Movie(
   duration: "3h 12m",
   rating: 7.9,
   synopsis: "Jake Sully protects his family from a returning threat.",
+  cast: [
+  "Sam Worthington",
+  "Zoe Saldaña",
+  "Sigourney Weaver",
+  "Stephen Lang",
+],
 ),
 
 Movie(
@@ -151,6 +202,12 @@ Movie(
   duration: "3h 0m",
   rating: 8.5,
   synopsis: "The story of J. Robert Oppenheimer and the atomic bomb.",
+  cast: [
+  "Cillian Murphy",
+  "Emily Blunt",
+  "Matt Damon",
+  "Robert Downey Jr.",
+],
 ),
 
 Movie(
@@ -161,6 +218,12 @@ Movie(
   duration: "2h 49m",
   rating: 8.0,
   synopsis: "John Wick faces the High Table in his toughest battle yet.",
+  cast: [
+    "Keanu Reeves",
+    "Halle Berry",
+    "Ian McShane",
+    "Asia Argento",
+  ],
 ),
 
 Movie(
@@ -171,6 +234,12 @@ Movie(
   duration: "1h 32m",
   rating: 7.7,
   synopsis: "Mario and Luigi enter the Mushroom Kingdom to save Princess Peach.",
+  cast: [
+    "Chris Pratt",
+    "Anya Taylor-Joy",
+    "Charlie Day",
+    "Jack Black",
+  ],
 ),
 
 Movie(
@@ -181,6 +250,12 @@ Movie(
   duration: "2h 43m",
   rating: 8.0,
   synopsis: "Ethan Hunt races to stop a dangerous AI weapon.",
+  cast: [
+  "Tom Cruise",
+  "Hayley Atwell",
+  "Ving Rhames",
+  "Simon Pegg",
+],
 ),
 Movie(
   title: "Agak Laen",
@@ -193,6 +268,12 @@ Movie(
   rating: 8.3,
   synopsis:
       "Empat sahabat mengelola rumah hantu yang tiba-tiba menjadi viral setelah sebuah kejadian tak terduga.",
+  cast: [
+    "Raffi Ahmad",
+    "Marcellino Dafiq",
+    "M. Arief",
+    "Nia Ramadhani",
+  ],
 ),
 
 Movie(
@@ -205,6 +286,12 @@ Movie(
   rating: 7.6,
   synopsis:
       "Teror kembali menghantui sebuah keluarga yang pindah ke rumah susun tua.",
+  cast: [
+    "Auli'i Cravalho",
+    "Oona Chaplin",
+    "Jorge Lendeborg Jr.",
+    "Stephanie Beatriz",
+  ],
 ),
 
 Movie(
@@ -217,6 +304,12 @@ Movie(
   rating: 7.1,
   synopsis:
       "Sekelompok mahasiswa mengalami kejadian mistis saat menjalani KKN di sebuah desa terpencil.",
+  cast: [
+  "Tissa Biani",
+  "Adinda Thomas",
+  "Aghniny Haque",
+  "Achmad Megantara",
+],
 ),
 
 Movie(
@@ -229,6 +322,13 @@ Movie(
   rating: 8.4,
   synopsis:
       "Seorang ayah dengan keterbatasan intelektual berjuang untuk bertemu kembali dengan putrinya.",
+  
+  cast: [
+    "Iko Uwais",
+    "Vino G. Bastian",
+    "Remy ISR",
+    "Dewi Sandra",
+  ],
 ),
 
 Movie(
@@ -240,6 +340,12 @@ Movie(
   rating: 7.5,
   synopsis:
       "Seorang wanita mencari bukti tentang siksa kubur dengan menghadapi kejadian-kejadian mengerikan.",
+  cast: [
+    "Raffi Ahmad",
+    "Marcellino Dafiq",
+    "M. Arief",
+    "Nia Ramadhani",
+  ],
 ),
 
 Movie(
@@ -251,6 +357,12 @@ Movie(
   rating: 6.9,
   synopsis:
       "Petualangan kocak Dono, Kasino, dan Indro dalam versi modern.",
+  cast: [
+    "Raffi Ahmad",
+    "Marcellino Dafiq",
+    "M. Arief",
+    "Nia Ramadhani",
+  ],
 ),
 ];
 
@@ -587,9 +699,25 @@ Widget build(BuildContext context) {
                       fit: StackFit.expand,
                       children: [
                         Image.network(
-                          movie.backdrop,
-                          fit: BoxFit.cover,
-                        ),
+  movie.backdrop,
+  fit: BoxFit.cover,
+  loadingBuilder: (context, child, loadingProgress) {
+    if (loadingProgress == null) return child;
+
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  },
+  errorBuilder: (context, error, stackTrace) {
+    return const Center(
+      child: Icon(
+        Icons.image,
+        size: 70,
+        color: Colors.grey,
+      ),
+    );
+  },
+),
                         Container(
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
@@ -651,11 +779,11 @@ Widget build(BuildContext context) {
           SizedBox(
             height: 45,
             child: ListView(
+              scrollDirection: Axis.horizontal,
               padding:
                   const EdgeInsets.symmetric(horizontal: 20),
               children: [
 
-                _category("All", true),
                 _category("Action", false),
                 _category("Sci-Fi", false),
                 _category("Comedy", false),
@@ -742,11 +870,27 @@ Widget build(BuildContext context) {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.network(
-                            movie.poster,
-                            width: 180,
-                            height: 250,
-                            fit: BoxFit.cover,
-                          ),
+  movie.poster,
+  width: 180,
+  height: 250,
+  fit: BoxFit.cover,
+  loadingBuilder: (context, child, loadingProgress) {
+    if (loadingProgress == null) return child;
+
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  },
+  errorBuilder: (context, error, stackTrace) {
+    return const Center(
+      child: Icon(
+        Icons.movie,
+        size: 60,
+        color: Colors.grey,
+      ),
+    );
+  },
+),
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -854,11 +998,27 @@ onPressed: () {
           Hero(
             tag: movie.title,
             child: Image.network(
-              movie.poster,
-              width: double.infinity,
-              height: 420,
-              fit: BoxFit.cover,
-            ),
+  movie.poster,
+  width: double.infinity,
+  height: 420,
+  fit: BoxFit.cover,
+  loadingBuilder: (context, child, loadingProgress) {
+    if (loadingProgress == null) return child;
+
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  },
+  errorBuilder: (context, error, stackTrace) {
+    return const Center(
+      child: Icon(
+        Icons.movie,
+        size: 80,
+        color: Colors.grey,
+      ),
+    );
+  },
+),
           ),
 
           Padding(
@@ -1047,7 +1207,9 @@ OutlinedButton.icon(
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const CinemaScreen(),
+                          builder: (_) => CinemaScreen(
+  movieTitle: movie.title,
+),
                         ),
                       );
                     },
@@ -1065,7 +1227,12 @@ OutlinedButton.icon(
 }
 
 class CinemaScreen extends StatelessWidget {
-  const CinemaScreen({super.key});
+  final String movieTitle;
+
+  const CinemaScreen({
+    super.key,
+    required this.movieTitle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1094,8 +1261,9 @@ class CinemaScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) => ScheduleScreen(
-                      cinema: cinemas[index],
-                    ),
+  cinema: cinemas[index],
+  movieTitle: movieTitle,
+),
                   ),
                 );
               },
@@ -1109,40 +1277,62 @@ class CinemaScreen extends StatelessWidget {
 
 class ScheduleScreen extends StatelessWidget {
   final String cinema;
+  final String movieTitle;
 
   const ScheduleScreen({
-    super.key,
-    required this.cinema,
-  });
+  super.key,
+  required this.cinema,
+  required this.movieTitle,
+});
 
   @override
   Widget build(BuildContext context) {
-    final schedule = [
-      "10:00",
-      "13:00",
-      "16:00",
-      "19:00",
-      "21:30",
-    ];
+    Map<String,List<String>> cinemaSchedule = {
+
+"XXI Plaza Indonesia":[
+"09:30",
+"12:15",
+"15:00",
+"18:00",
+"21:00",
+],
+
+"CGV Grand Indonesia":[
+"10:00",
+"13:20",
+"16:40",
+"19:45",
+],
+
+"Cinépolis Senayan":[
+"11:00",
+"14:30",
+"17:30",
+"20:45",
+],
+
+};
 
     return Scaffold(
       appBar: AppBar(
         title: Text(cinema),
       ),
       body: ListView.builder(
-        itemCount: schedule.length,
+        itemCount: cinemaSchedule[cinema]!.length,
         itemBuilder: (_, index) {
           return Card(
             margin: const EdgeInsets.all(12),
             child: ListTile(
               leading: const Icon(Icons.schedule),
-              title: Text(schedule[index]),
+              title: Text(cinemaSchedule[cinema]![index]),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const SeatBookingScreen(),
+                    builder: (_) => SeatBookingScreen(
+  movieTitle: movieTitle,
+),
                   ),
                 );
               },
@@ -1155,7 +1345,9 @@ class ScheduleScreen extends StatelessWidget {
 }
 
 class SeatBookingScreen extends StatefulWidget {
-  const SeatBookingScreen({super.key});
+  final String movieTitle;
+
+  const SeatBookingScreen({super.key, required this.movieTitle});
 
   @override
   State<SeatBookingScreen> createState() =>
@@ -1295,9 +1487,10 @@ const SizedBox(height: 15),
             context,
             MaterialPageRoute(
               builder: (_) => PaymentScreen(
-                totalSeat: selectedSeats.length,
-                totalPrice: selectedSeats.length * 50000,
-              ),
+  movieTitle: widget.movieTitle,
+  totalSeat: selectedSeats.length,
+  totalPrice: selectedSeats.length * 50000,
+),
             ),
           );
         },
@@ -1314,15 +1507,17 @@ const SizedBox(height: 15),
 }
 
 class PaymentScreen extends StatelessWidget {
+  final String movieTitle;
   final int totalSeat;
   final int totalPrice;
 
   const PaymentScreen({
     super.key,
+    required this.movieTitle,
     required this.totalSeat,
     required this.totalPrice,
   });
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1374,6 +1569,7 @@ Card(
           builder: (_) => QueueScreen(
             payment: "QRIS",
             totalSeat: totalSeat,
+            movieTitle: movieTitle,
           ),
         ),
       );
@@ -1393,6 +1589,7 @@ Card(
           builder: (_) => QueueScreen(
             payment: "GoPay",
             totalSeat: totalSeat,
+            movieTitle: movieTitle,
           ),
         ),
       );
@@ -1412,6 +1609,7 @@ Card(
           builder: (_) => QueueScreen(
             payment: "OVO",
             totalSeat: totalSeat,
+            movieTitle: movieTitle,
           ),
         ),
       );
@@ -1431,6 +1629,7 @@ Card(
           builder: (_) => QueueScreen(
             payment: "DANA",
             totalSeat: totalSeat,
+            movieTitle: movieTitle,
           ),
         ),
       );
@@ -1450,6 +1649,7 @@ Card(
           builder: (_) => QueueScreen(
             payment: "Credit Card",
             totalSeat: totalSeat,
+            movieTitle: movieTitle,
           ),
         ),
       );
@@ -1542,10 +1742,27 @@ class _SearchScreenState extends State<SearchScreen> {
                     borderRadius: BorderRadius.circular(8),
 
                     child: Image.network(
-                      movie.poster,
-                      width: 55,
-                      fit: BoxFit.cover,
-                    ),
+  movie.poster,
+  width: 55,
+  fit: BoxFit.cover,
+  loadingBuilder: (context, child, loadingProgress) {
+    if (loadingProgress == null) return child;
+
+    return const SizedBox(
+      width: 55,
+      height: 80,
+      child: Center(
+        child: CircularProgressIndicator(strokeWidth: 2),
+      ),
+    );
+  },
+  errorBuilder: (context, error, stackTrace) {
+    return const Icon(
+      Icons.movie,
+      color: Colors.grey,
+    );
+  },
+),
 
                   ),
 
@@ -1644,15 +1861,33 @@ class FavoriteScreen extends StatelessWidget {
 
             child: ListTile(
 
-              leading: Image.network(
+             leading: ClipRRect(
+  borderRadius: BorderRadius.circular(8),
+  child: Image.network(
+    movie.poster,
+    width: 55,
+    fit: BoxFit.cover,
+    loadingBuilder: (context, child, loadingProgress) {
+      if (loadingProgress == null) return child;
 
-                movie.poster,
-
-                width: 55,
-
-                fit: BoxFit.cover,
-
-              ),
+      return const SizedBox(
+        width: 55,
+        height: 80,
+        child: Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+          ),
+        ),
+      );
+    },
+    errorBuilder: (context, error, stackTrace) {
+      return const Icon(
+        Icons.movie,
+        color: Colors.grey,
+      );
+    },
+  ),
+),
 
               title: Text(movie.title),
 
@@ -1834,11 +2069,13 @@ class HistoryScreen extends StatelessWidget {
 class QueueScreen extends StatefulWidget {
   final String payment;
   final int totalSeat;
+  final String movieTitle;
 
   const QueueScreen({
     super.key,
     required this.payment,
     required this.totalSeat,
+    required this.movieTitle,
   });
 
   @override
@@ -1848,11 +2085,13 @@ class QueueScreen extends StatefulWidget {
 class TicketScreen extends StatelessWidget {
   final String payment;
   final int totalSeat;
+  final String movieTitle;
 
   const TicketScreen({
     super.key,
     required this.payment,
     required this.totalSeat,
+    required this.movieTitle,
   });
 
   @override
@@ -1883,7 +2122,13 @@ class TicketScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text("Movie Ticket"),
+                Text(
+                  movieTitle,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(height: 20),
                 Container(
                   width: 180,
@@ -1891,14 +2136,26 @@ class TicketScreen extends StatelessWidget {
                   color: Colors.white,
                   alignment: Alignment.center,
                   child: QrImageView(
-  data: "TX-2026-001",
-  size: 160,
-  backgroundColor: Colors.white,
-),
+                    data: "TX-2026-001",
+                    size: 160,
+                    backgroundColor: Colors.white,
+                  ),
                 ),
                 const SizedBox(height: 20),
+                const Text("Booking ID : TX-2026-001"),
+                const SizedBox(height: 10),
+                const Text("Cinema : CGV Grand Indonesia"),
+                const SizedBox(height: 8),
+                Text("Seat : $totalSeat"),
+                const SizedBox(height: 8),
+                Text("Payment : $payment"),
+                const SizedBox(height: 8),
                 const Text(
-                  "Booking ID : TX-2026-001",
+                  "Status : PAID ✅",
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 25),
                 FilledButton(
@@ -1920,32 +2177,38 @@ class TicketScreen extends StatelessWidget {
 }
 
 class _QueueScreenState extends State<QueueScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(
+      const Duration(seconds: 3),
+      () {
+        hasTicket = true;
+
+        myTickets.add({
+          "title": widget.movieTitle,
+          "bookingId":
+              "TX-2026-${(myTickets.length + 1).toString().padLeft(3, '0')}",
+          "payment": widget.payment,
+          "seat": widget.totalSeat,
+        });
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => TicketScreen(
+              payment: widget.payment,
+              totalSeat: widget.totalSeat,
+              movieTitle: widget.movieTitle,
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
-void initState() {
-  super.initState();
-
-  Future.delayed(
-    const Duration(seconds: 3),
-    () {
-
-      hasTicket = true;
-
-myTickets.add("TX-2026-001");
-      
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => TicketScreen(
-  payment: widget.payment,
-  totalSeat: widget.totalSeat,
-),
-        ),
-      );
-    },
-  );
-}
-  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -1988,30 +2251,61 @@ class AllMoviesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("All Movies"),
       ),
-      body: ListView(
-        children: const [
-          ListTile(
-            leading: Icon(Icons.movie),
-            title: Text("Dune Part Two"),
-            subtitle: Text("Sci-Fi"),
-          ),
-          ListTile(
-            leading: Icon(Icons.movie),
-            title: Text("Godzilla x Kong"),
-            subtitle: Text("Action"),
-          ),
-          ListTile(
-            leading: Icon(Icons.movie),
-            title: Text("Inside Out 2"),
-            subtitle: Text("Animation"),
-          ),
-          ListTile(
-            leading: Icon(Icons.movie),
-            title: Text("Kung Fu Panda 4"),
-            subtitle: Text("Comedy"),
-          ),
-        ],
+      body: ListView.builder(
+  itemCount: movies.length,
+  itemBuilder: (context, index) {
+    final movie = movies[index];
+
+    return Card(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 8,
       ),
+      child: ListTile(
+       leading: ClipRRect(
+  borderRadius: BorderRadius.circular(8),
+  child: Image.network(
+    movie.poster,
+    width: 60,
+    fit: BoxFit.cover,
+    loadingBuilder: (context, child, loadingProgress) {
+      if (loadingProgress == null) return child;
+
+      return const SizedBox(
+        width: 60,
+        height: 80,
+        child: Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+          ),
+        ),
+      );
+    },
+    errorBuilder: (context, error, stackTrace) {
+      return const Icon(
+        Icons.movie,
+        color: Colors.grey,
+      );
+    },
+  ),
+), 
+        title: Text(movie.title),
+        subtitle: Text(movie.genre),
+        trailing: Text(
+          "⭐ ${movie.rating}",
+        ),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => DetailScreen(movie: movie),
+            ),
+          );
+        },
+      ),
+    );
+  },
+),
     );
   }
 }
@@ -2037,14 +2331,15 @@ class _MyTicketScreenState extends State<MyTicketScreen> {
                 return Card(
                   child: ListTile(
                     leading: const Icon(Icons.confirmation_number),
-                    title: const Text("Movie Ticket"),
-                    subtitle: Text("Booking ID : $ticket"),
+                   title: Text(ticket["title"]),
+subtitle: Text("Booking ID : ${ticket["bookingId"]}"),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (_) => TicketScreen(
+                            movieTitle: ticket["title"],
                             payment: "GoPay",
                             totalSeat: 1,
                           ),
