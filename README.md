@@ -1,17 +1,62 @@
-# flutter_application_bioskop
+# 🎬 CinemaTix
 
-A new Flutter project.
+CinemaTix is a Flutter-based movie ticket booking application developed as a university project.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+- User Login & Register
+- Admin Dashboard
+- Manage Movies (Add, Edit, Delete)
+- Movie Search
+- Favorite Movies
+- Movie Details
+- Seat Selection
+- Multiple Payment Methods
+- QR Code E-Ticket
+- Booking History
+- Admin Booking Management
+- User Management
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠 Technologies
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- Flutter
+- Dart
+- Material 3
+- qr_flutter
+- url_launcher
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 📂 Project Structure
+
+```text
+lib/
+├── main.dart
+assets/
+├── posters/
+├── backdrops/
+```
+
+## 🚀 Getting Started
+
+1. Clone this repository
+
+```bash
+git clone https://github.com/Arjuna401/CinemaTix.git
+```
+
+2. Install dependencies
+
+```bash
+flutter pub get
+```
+
+3. Run the application
+
+```bash
+flutter run
+```
+
+## 👨‍💻 Developer
+
+**Arjuna Pinayungan**
+
+University Project - CinemaTix (2026)
