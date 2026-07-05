@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:async';
 // Removed unused external package imports to avoid missing package errors.
 void main() {
   runApp(const CinemaTixApp());
@@ -57,6 +58,15 @@ final List<Movie> favoriteMovies = [];
 
 final List<Map<String, dynamic>> myTickets = [];
 
+const String adminEmail = "admin@cinematix.com";
+const String adminPassword = "admin123";
+
+String registeredName = "";
+String registeredEmail = "";
+String registeredPassword = "";
+
+List<Map<String, dynamic>> users = [];
+
 bool hasTicket = false;
 
 final List<Movie> movies = [
@@ -73,19 +83,19 @@ final List<Movie> movies = [
     rating: 8.8,
     synopsis:
         "Paul Atreides joins the Fremen to seek revenge while becoming the prophesied leader of Arrakis.",
-        cast: [
-  "Timothée Chalamet",
-  "Zendaya",
-  "Rebecca Ferguson",
-  "Austin Butler",
-],
+    cast: [
+      "Timothée Chalamet",
+      "Zendaya",
+      "Rebecca Ferguson",
+      "Austin Butler",
+    ],
   ),
   Movie(
     title: "Godzilla x Kong",
     poster:
         "https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
     backdrop:
-        "https://image.tmdb.org/t/p/original/z8d8A8wQ8PZ0jQJ6j8lR7X2Yw9D.jpg",
+"https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLv7WvFPpKLZkyk.jpg",
     genre: "Action",
     duration: "1h 55m",
     rating: 7.7,
@@ -229,7 +239,7 @@ Movie(
 Movie(
   title: "The Super Mario Bros. Movie",
   poster: "https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
-  backdrop: "https://image.tmdb.org/t/p/original/9n2tJBplPbgR2ca05hS5CKXwP2c.jpg",
+  backdrop: "https://image.tmdb.org/t/p/original/9n2tJBplPbgR2ca05hS5CKXwP2c.jpg", 
   genre: "Animation",
   duration: "1h 32m",
   rating: 7.7,
@@ -257,111 +267,106 @@ Movie(
   "Simon Pegg",
 ],
 ),
+
 Movie(
   title: "Agak Laen",
- poster:
-"https://upload.wikimedia.org/wikipedia/id/8/82/Agak_Laen.jpg",
-
-  backdrop: "https://image.tmdb.org/t/p/original/fTzqkM8xQ0qL7sQ0kH5u9g0v7hQ.jpg",
+  poster: "assets/posters/agak_laen.jpg",
+  backdrop: "assets/backdrops/agak_laen.jpg",
   genre: "Comedy",
   duration: "1h 59m",
   rating: 8.3,
   synopsis:
-      "Empat sahabat mengelola rumah hantu yang tiba-tiba menjadi viral setelah sebuah kejadian tak terduga.",
+      "Empat sahabat mengelola rumah hantu yang mendadak viral setelah sebuah kejadian tak terduga. Popularitas yang mereka raih justru membawa teror baru yang tidak pernah mereka bayangkan.",
   cast: [
-    "Raffi Ahmad",
-    "Marcellino Dafiq",
-    "M. Arief",
-    "Nia Ramadhani",
+    "Bene Dion",
+    "Boris Bokir",
+    "Oki Rengga",
+    "Indra Jegel",
   ],
 ),
 
 Movie(
-  title: "Pengabdi Setan 2",
-  poster:
-"https://upload.wikimedia.org/wikipedia/id/0/0b/Pengabdi_Satan_2.jpg",
-  backdrop: "https://image.tmdb.org/t/p/original/3jSxS9zK0dQYb2Kx4gX8v2M4kQY.jpg",
+  title: "Pengabdi Setan 2: Communion",
+  poster: "assets/posters/pengabdi_setan2.jpg",
+  backdrop: "assets/backdrops/pengabdi_setan2.jpg",
   genre: "Horror",
   duration: "1h 59m",
   rating: 7.6,
   synopsis:
-      "Teror kembali menghantui sebuah keluarga yang pindah ke rumah susun tua.",
+      "Setelah selamat dari teror ibu mereka, sebuah keluarga pindah ke rumah susun yang ternyata menyimpan rahasia dan kengerian baru.",
   cast: [
-    "Auli'i Cravalho",
-    "Oona Chaplin",
-    "Jorge Lendeborg Jr.",
-    "Stephanie Beatriz",
+    "Tara Basro",
+    "Endy Arfian",
+    "Nasar Anuz",
+    "Bront Palarae",
   ],
 ),
 
 Movie(
   title: "KKN di Desa Penari",
-  poster:
-"https://upload.wikimedia.org/wikipedia/id/5/5f/KKN_di_Desa_Penari.jpg",
-  backdrop: "https://image.tmdb.org/t/p/original/k7Q4vK0fWm5uR5QjA0jQwLrV3rM.jpg",
+  poster: "assets/posters/kkn_desa_penari.jpg",
+  backdrop: "assets/backdrops/kkn_desa_penari.jpg",
   genre: "Horror",
   duration: "2h 10m",
   rating: 7.1,
   synopsis:
-      "Sekelompok mahasiswa mengalami kejadian mistis saat menjalani KKN di sebuah desa terpencil.",
+      "Enam mahasiswa menjalani KKN di sebuah desa terpencil. Mereka melanggar aturan adat dan mengalami rentetan kejadian mistis yang mengancam nyawa.",
   cast: [
-  "Tissa Biani",
-  "Adinda Thomas",
-  "Aghniny Haque",
-  "Achmad Megantara",
-],
+    "Tissa Biani",
+    "Adinda Thomas",
+    "Aghniny Haque",
+    "Achmad Megantara",
+  ],
 ),
 
 Movie(
   title: "Miracle in Cell No. 7",
- poster:
-"https://upload.wikimedia.org/wikipedia/id/5/56/Miracle_in_Cell_No._7_%28film_Indonesia%29.jpg",
-  backdrop: "https://image.tmdb.org/t/p/original/h4vK2fP7jY8Q9sL3mD7nT4Q2P9A.jpg",
+  poster: "assets/posters/miracle_cell7.jpg",
+  backdrop: "assets/backdrops/miracle_cell7.jpg",
   genre: "Drama",
   duration: "2h 25m",
   rating: 8.4,
   synopsis:
-      "Seorang ayah dengan keterbatasan intelektual berjuang untuk bertemu kembali dengan putrinya.",
-  
+      "Seorang ayah berkebutuhan khusus dipenjara atas tuduhan yang tidak dilakukannya dan berjuang agar dapat bertemu kembali dengan putrinya.",
   cast: [
-    "Iko Uwais",
     "Vino G. Bastian",
-    "Remy ISR",
-    "Dewi Sandra",
+    "Graciella Abigail",
+    "Indro Warkop",
+    "Denny Sumargo",
   ],
 ),
 
 Movie(
   title: "Siksa Kubur",
-  poster: "https://image.tmdb.org/t/p/w500/z3P8n4j9K7Y0kL2fM8nV3Q9hP2R.jpg",
-  backdrop: "https://image.tmdb.org/t/p/original/q9L5vN8dM3kP2rF7hW6jX1aT9Q.jpg",
+  poster: "assets/posters/siksa_kubur.jpg",
+  backdrop: "assets/backdrops/siksa_kubur.jpg",
   genre: "Horror",
   duration: "1h 57m",
   rating: 7.5,
   synopsis:
-      "Seorang wanita mencari bukti tentang siksa kubur dengan menghadapi kejadian-kejadian mengerikan.",
+      "Setelah kedua orang tuanya meninggal, seorang wanita berusaha membuktikan apakah siksa kubur benar-benar ada dengan menghadapi pengalaman yang mengerikan.",
   cast: [
-    "Raffi Ahmad",
-    "Marcellino Dafiq",
-    "M. Arief",
-    "Nia Ramadhani",
+    "Faradina Mufti",
+    "Reza Rahadian",
+    "Christine Hakim",
+    "Slamet Rahardjo",
   ],
 ),
 
 Movie(
   title: "Warkop DKI Reborn",
-  poster: "https://image.tmdb.org/t/p/w500/7rXj0mJQ2dP8L5hY4vN9kA3bF6Q.jpg",
-  backdrop: "https://image.tmdb.org/t/p/original/d6QkM8nP4vT2rY9hL5jW3aF7Q8X.jpg",
+  poster: "assets/posters/warkop_reborn.jpg",
+  backdrop: "assets/backdrops/warkop_reborn.jpg",
   genre: "Comedy",
   duration: "1h 34m",
   rating: 6.9,
   synopsis:
-      "Petualangan kocak Dono, Kasino, dan Indro dalam versi modern.",
+      "Dono, Kasino, dan Indro kembali beraksi dalam versi modern dengan tingkah kocak yang membawa mereka ke berbagai situasi tak terduga.",
   cast: [
-    "Raffi Ahmad",
-    "Marcellino Dafiq",
-    "M. Arief",
-    "Nia Ramadhani",
+    "Abimana Aryasatya",
+    "Vino G. Bastian",
+    "Tora Sudiro",
+    "Indro Warkop",
   ],
 ),
 ];
@@ -430,6 +435,213 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+class ManageMoviesScreen extends StatefulWidget {
+  const ManageMoviesScreen({super.key});
+
+  @override
+  State<ManageMoviesScreen> createState() =>
+      _ManageMoviesScreenState();
+}
+
+class _ManageMoviesScreenState extends State<ManageMoviesScreen> {
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Manage Movies"),
+      ),
+
+      body: ListView.builder(
+
+        itemCount: movies.length,
+
+        itemBuilder: (_, index) {
+
+          final movie = movies[index];
+
+          return Card(
+
+            margin: const EdgeInsets.all(10),
+
+            child: ListTile(
+
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  movie.poster,
+                  width: 55,
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              title: Text(movie.title),
+
+              subtitle: Text(movie.genre),
+
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+
+                  IconButton(
+                    icon: const Icon(Icons.edit),
+                   onPressed: () async {
+  await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => AddMovieScreen(
+        movie: movie,
+        index: index,
+      ),
+    ),
+  );
+
+  setState(() {});
+},
+                  ),
+
+                  IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                    onPressed: () async {
+
+  final delete = await showDialog<bool>(
+
+    context: context,
+
+    builder: (_) {
+
+      return AlertDialog(
+
+        title: const Text("Delete Movie"),
+
+        content: Text(
+          "Delete ${movie.title}?",
+        ),
+
+        actions: [
+
+          TextButton(
+
+            onPressed: () {
+
+              Navigator.pop(context, false);
+
+            },
+
+            child: const Text("Cancel"),
+
+          ),
+
+          FilledButton(
+
+            onPressed: () {
+
+              Navigator.pop(context, true);
+
+            },
+
+            child: const Text("Delete"),
+
+          ),
+
+        ],
+
+      );
+
+    },
+
+  );
+
+  if (delete == true) {
+
+    setState(() {
+
+      movies.removeAt(index);
+
+    });
+
+  }
+
+  },
+),
+
+                ],
+              ),
+
+            ),
+
+          );
+
+        },
+
+      ),
+
+      floatingActionButton: FloatingActionButton(
+
+        child: const Icon(Icons.add),
+
+       onPressed: () async {
+  await Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => const AddMovieScreen(),
+    ),
+  );
+
+  setState(() {});
+},
+
+      ),
+
+    );
+
+  }
+
+}
+
+class UsersScreen extends StatelessWidget {
+  const UsersScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Registered Users"),
+      ),
+
+      body: users.isEmpty
+          ? const Center(
+              child: Text("No registered users"),
+            )
+          : ListView.builder(
+              itemCount: users.length,
+              itemBuilder: (context, index) {
+
+                final user = users[index];
+
+                return ListTile(
+                  leading: const CircleAvatar(
+                    child: Icon(Icons.person),
+                  ),
+                  title: Text(user["name"]),
+                  subtitle: Text(user["email"]),
+                );
+
+              },
+            ),
+
+    );
+  }
+}
+
+
 class _LoginScreenState extends State<LoginScreen> {
 
   final email = TextEditingController();
@@ -497,34 +709,348 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 height: 55,
                 child: FilledButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const MainPage(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    "LOGIN",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
+  onPressed: () {
+
+  // LOGIN ADMIN
+  if (email.text.trim() == adminEmail &&
+    password.text == adminPassword) {
+
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (_) => const AdminLoadingScreen(),
+    ),
+  );
+
+  return;
+}
+
+  // Belum pernah membuat akun
+  if (registeredEmail.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Please create an account first."),
+      ),
+    );
+    return;
+  }
+
+  // Login user
+bool found = false;
+
+for (final user in users) {
+
+  if (user["email"] == email.text.trim() &&
+      user["password"] == password.text) {
+
+    found = true;
+
+    registeredName = user["name"];
+    registeredEmail = user["email"];
+    registeredPassword = user["password"];
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const LoginLoadingScreen(),
+      ),
+    );
+
+    break;
+  }
+
+}
+
+if (!found) {
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text("Email or Password is incorrect."),
+    ),
+  );
+
+}
+},
+  child: const Text(
+    "LOGIN",
+    style: TextStyle(fontSize: 18),
+  ),
+),
               ),
 
               const SizedBox(height: 20),
 
-              Center(
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text("Create Account"),
-                ),
-              ),
+             Center(
+  child: TextButton(
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const CreateAccountScreen(),
+        ),
+      );
+    },
+    child: const Text("Create Account"),
+  ),
+),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class LoginLoadingScreen extends StatefulWidget {
+  const LoginLoadingScreen({super.key});
+
+  @override
+  State<LoginLoadingScreen> createState() => _LoginLoadingScreenState();
+}
+
+class AdminLoadingScreen extends StatefulWidget {
+  const AdminLoadingScreen({super.key});
+
+  @override
+  State<AdminLoadingScreen> createState() => _AdminLoadingScreenState();
+}
+
+class _AdminLoadingScreenState extends State<AdminLoadingScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(
+  const Duration(seconds: 2),
+  () {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const AdminScreen(),
+      ),
+    );
+  },
+);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xff0F172A),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.admin_panel_settings,
+              size: 90,
+              color: Colors.orange,
+            ),
+            const SizedBox(height: 25),
+            const Text(
+              "Signing In as Admin...",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 12),
+            const Text(
+              "Loading Admin Dashboard",
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+            const SizedBox(height: 40),
+            const SizedBox(
+              width: 45,
+              height: 45,
+              child: CircularProgressIndicator(
+                strokeWidth: 4,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LoginLoadingScreenState
+    extends State<LoginLoadingScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const MainPage(),
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xff0F172A),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            Icon(
+              Icons.local_movies,
+              size: 90,
+              color: Colors.orange,
+            ),
+
+            const SizedBox(height: 25),
+
+            const Text(
+              "Logging In...",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            const Text(
+              "Preparing your movie experience",
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
+
+            const SizedBox(height: 40),
+
+            const SizedBox(
+              width: 45,
+              height: 45,
+              child: CircularProgressIndicator(
+                strokeWidth: 4,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CreateAccountScreen extends StatefulWidget {
+  const CreateAccountScreen({super.key});
+
+  @override
+  State<CreateAccountScreen> createState() =>
+      _CreateAccountScreenState();
+}
+
+class _CreateAccountScreenState
+    extends State<CreateAccountScreen> {
+
+  final name = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+
+      appBar: AppBar(
+        title: const Text("Create Account"),
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.all(25),
+
+        child: Column(
+
+          children: [
+
+            TextField(
+              controller: name,
+              decoration: const InputDecoration(
+                labelText: "Full Name",
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            TextField(
+              controller: email,
+              decoration: const InputDecoration(
+                labelText: "Email",
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            TextField(
+              controller: password,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: "Password",
+              ),
+            ),
+
+            const SizedBox(height: 35),
+
+            FilledButton(
+
+              onPressed: () {
+
+  if (name.text.trim().isEmpty ||
+      email.text.trim().isEmpty ||
+      password.text.trim().isEmpty) {
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Please fill all fields."),
+      ),
+    );
+    return;
+  }
+
+ registeredName = name.text.trim();
+registeredEmail = email.text.trim();
+registeredPassword = password.text.trim();
+
+users.add({
+  "name": registeredName,
+  "email": registeredEmail,
+  "password": registeredPassword,
+});
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text("Account Created Successfully!"),
+    ),
+  );
+
+  Navigator.pop(context);
+},
+
+              child: const Text("CREATE ACCOUNT"),
+            ),
+
+          ],
+
+        ),
+
+      ),
+
+    );
+
   }
 }
 
@@ -583,10 +1109,55 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  late final PageController bannerController;
+
+Timer? bannerTimer;
+
+int currentBanner = 0;
+
+@override
+void initState() {
+  super.initState();
+
+  bannerController = PageController(
+    viewportFraction: .9,
+  );
+
+  bannerTimer = Timer.periodic(
+    const Duration(seconds: 4),
+    (timer) {
+      currentBanner++;
+
+      if (currentBanner >= movies.length) {
+        currentBanner = 0;
+      }
+
+      bannerController.animateToPage(
+        currentBanner,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    },
+  );
+}
+
+@override
+void dispose() {
+  bannerTimer?.cancel();
+  bannerController.dispose();
+  super.dispose();
+}
+
+@override
 Widget build(BuildContext context) {
 
     final width = MediaQuery.of(context).size.width;
@@ -615,21 +1186,21 @@ Widget build(BuildContext context) {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Good Evening 👋",
                         style: TextStyle(
                           color: Colors.grey,
                         ),
                       ),
-                      SizedBox(height: 3),
+                      const SizedBox(height: 3),
                       Text(
-                        "Arjuna",
-                        style: TextStyle(
+                        registeredName.isEmpty ? "Guest" : registeredName,
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -687,7 +1258,7 @@ Widget build(BuildContext context) {
           SizedBox(
             height: 200,
             child: PageView.builder(
-              controller: PageController(viewportFraction: .9),
+              controller: bannerController,
               itemCount: movies.length,
               itemBuilder: (_, index) {
                 final movie = movies[index];
@@ -1163,17 +1734,13 @@ const SizedBox(height: 15),
 Wrap(
   spacing: 10,
   runSpacing: 10,
-  children: const [
-
-    Chip(label: Text("Timothée Chalamet")),
-
-    Chip(label: Text("Zendaya")),
-
-    Chip(label: Text("Rebecca Ferguson")),
-
-    Chip(label: Text("Austin Butler")),
-
-  ],
+  children: movie.cast
+      .map(
+        (actor) => Chip(
+          label: Text(actor),
+        ),
+      )
+      .toList(),
 ),
 
 const SizedBox(height: 30),
@@ -1332,6 +1899,7 @@ class ScheduleScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (_) => SeatBookingScreen(
   movieTitle: movieTitle,
+  cinema: cinema,
 ),
                   ),
                 );
@@ -1346,8 +1914,13 @@ class ScheduleScreen extends StatelessWidget {
 
 class SeatBookingScreen extends StatefulWidget {
   final String movieTitle;
+  final String cinema;
 
-  const SeatBookingScreen({super.key, required this.movieTitle});
+  const SeatBookingScreen({
+    super.key,
+    required this.movieTitle,
+    required this.cinema,
+  });
 
   @override
   State<SeatBookingScreen> createState() =>
@@ -1490,6 +2063,8 @@ const SizedBox(height: 15),
   movieTitle: widget.movieTitle,
   totalSeat: selectedSeats.length,
   totalPrice: selectedSeats.length * 50000,
+  seats: selectedSeats.map((index) => "${String.fromCharCode(65 + (index ~/ 8))}${index % 8 + 1}").toList(),
+  cinema: widget.cinema,
 ),
             ),
           );
@@ -1510,13 +2085,17 @@ class PaymentScreen extends StatelessWidget {
   final String movieTitle;
   final int totalSeat;
   final int totalPrice;
+  final List<String> seats;
+  final String cinema;
 
   const PaymentScreen({
-    super.key,
-    required this.movieTitle,
-    required this.totalSeat,
-    required this.totalPrice,
-  });
+  super.key,
+  required this.movieTitle,
+  required this.totalSeat,
+  required this.totalPrice,
+  required this.seats,
+  required this.cinema,
+});
   
   @override
   Widget build(BuildContext context) {
@@ -1567,10 +2146,12 @@ Card(
         context,
         MaterialPageRoute(
           builder: (_) => QueueScreen(
-            payment: "QRIS",
-            totalSeat: totalSeat,
-            movieTitle: movieTitle,
-          ),
+  payment: "QRIS",
+  totalSeat: totalSeat,
+  movieTitle: movieTitle,
+  seats: seats,
+  cinema: cinema,
+),
         ),
       );
     },
@@ -1586,11 +2167,13 @@ Card(
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => QueueScreen(
-            payment: "GoPay",
-            totalSeat: totalSeat,
-            movieTitle: movieTitle,
-          ),
+         builder: (_) => QueueScreen(
+  payment: "GoPay",
+  totalSeat: totalSeat,
+  movieTitle: movieTitle,
+  seats: seats,
+  cinema: cinema,
+),
         ),
       );
     },
@@ -1610,6 +2193,8 @@ Card(
             payment: "OVO",
             totalSeat: totalSeat,
             movieTitle: movieTitle,
+            seats: seats,
+            cinema: cinema,
           ),
         ),
       );
@@ -1630,6 +2215,8 @@ Card(
             payment: "DANA",
             totalSeat: totalSeat,
             movieTitle: movieTitle,
+            seats: seats,
+            cinema: cinema,
           ),
         ),
       );
@@ -1650,6 +2237,8 @@ Card(
             payment: "Credit Card",
             totalSeat: totalSeat,
             movieTitle: movieTitle,
+            seats: seats,
+            cinema: cinema,
           ),
         ),
       );
@@ -1956,40 +2545,25 @@ class ProfileScreen extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          const Center(
-
+          Center(
             child: Text(
-
-              "Arjuna",
-
-              style: TextStyle(
-
+              registeredName.isEmpty ? "Guest" : registeredName,
+              style: const TextStyle(
                 fontSize: 26,
-
                 fontWeight: FontWeight.bold,
-
               ),
-
             ),
-
           ),
 
           const SizedBox(height: 8),
 
-          const Center(
-
+          Center(
             child: Text(
-
-              "arjuna@email.com",
-
-              style: TextStyle(
-
+              registeredEmail.isEmpty ? "No email" : registeredEmail,
+              style: const TextStyle(
                 color: Colors.grey,
-
               ),
-
             ),
-
           ),
 
           const SizedBox(height: 40),
@@ -2002,7 +2576,14 @@ class ProfileScreen extends StatelessWidget {
 
             trailing: const Icon(Icons.chevron_right),
 
-            onTap: () {},
+            onTap: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => const HistoryScreen(),
+    ),
+  );
+},
 
           ),
 
@@ -2018,17 +2599,53 @@ class ProfileScreen extends StatelessWidget {
 
           ),
 
-          ListTile(
+         ListTile(
+  leading: const Icon(Icons.logout),
+  title: const Text("Logout"),
+  trailing: const Icon(Icons.chevron_right),
 
-            leading: const Icon(Icons.logout),
+ onTap: () async {
 
-            title: const Text("Logout"),
+  final logout = await showDialog<bool>(
+    context: context,
+    builder: (_) {
+      return AlertDialog(
+        title: const Text("Logout"),
+        content: const Text(
+          "Are you sure you want to logout?",
+        ),
+        actions: [
 
-            trailing: const Icon(Icons.chevron_right),
-
-            onTap: () {},
-
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, false);
+            },
+            child: const Text("Cancel"),
           ),
+
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+            child: const Text("Logout"),
+          ),
+
+        ],
+      );
+    },
+  );
+
+  if (logout == true) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const LoginScreen(),
+      ),
+      (route) => false,
+    );
+  }
+},
+),
 
         ],
 
@@ -2049,19 +2666,39 @@ class HistoryScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Booking History"),
       ),
-      body: ListView(
-        children: const [
-          ListTile(
-            leading: Icon(Icons.movie),
-            title: Text("Dune Part Two"),
-            subtitle: Text("CGV • Seat A3"),
-            trailing: Icon(
-              Icons.check_circle,
-              color: Colors.green,
+      body: myTickets.isEmpty
+          ? const Center(
+              child: Text(
+                "No booking history yet",
+                style: TextStyle(fontSize: 18),
+              ),
+            )
+          : ListView.builder(
+              itemCount: myTickets.length,
+              itemBuilder: (context, index) {
+                final ticket = myTickets[index];
+
+                return Card(
+                  margin: const EdgeInsets.all(10),
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.history,
+                      color: Colors.orange,
+                    ),
+                    title: Text(ticket["title"]),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Booking ID : ${ticket["id"]}"),
+                        Text("Cinema : ${ticket["cinema"]}"),
+                        Text("Seat : ${ticket["seat"]}"),
+                        Text("Payment : ${ticket["payment"]}"),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -2070,29 +2707,39 @@ class QueueScreen extends StatefulWidget {
   final String payment;
   final int totalSeat;
   final String movieTitle;
+  final List<String> seats;
+  final String cinema;
 
   const QueueScreen({
-    super.key,
-    required this.payment,
-    required this.totalSeat,
-    required this.movieTitle,
-  });
+  super.key,
+  required this.payment,
+  required this.totalSeat,
+  required this.movieTitle,
+  required this.seats,
+  required this.cinema,
+});
 
   @override
   State<QueueScreen> createState() => _QueueScreenState();
 }
 
 class TicketScreen extends StatelessWidget {
-  final String payment;
-  final int totalSeat;
   final String movieTitle;
+  final String payment;
+  final List<String> seats;
+
+  final String bookingId;
+  final String cinema;
 
   const TicketScreen({
-    super.key,
-    required this.payment,
-    required this.totalSeat,
-    required this.movieTitle,
-  });
+  super.key,
+  required this.movieTitle,
+  required this.payment,
+  required this.seats,
+
+  required this.bookingId,
+  required this.cinema,
+});
 
   @override
   Widget build(BuildContext context) {
@@ -2136,27 +2783,36 @@ class TicketScreen extends StatelessWidget {
                   color: Colors.white,
                   alignment: Alignment.center,
                   child: QrImageView(
-                    data: "TX-2026-001",
+                    data: bookingId,
                     size: 160,
                     backgroundColor: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text("Booking ID : TX-2026-001"),
-                const SizedBox(height: 10),
-                const Text("Cinema : CGV Grand Indonesia"),
-                const SizedBox(height: 8),
-                Text("Seat : $totalSeat"),
-                const SizedBox(height: 8),
-                Text("Payment : $payment"),
-                const SizedBox(height: 8),
-                const Text(
-                  "Status : PAID ✅",
-                  style: TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+
+Text("Booking ID : $bookingId"),
+
+const SizedBox(height: 10),
+
+Text("Cinema : $cinema"),
+
+const SizedBox(height: 8),
+
+Text("Seat : ${seats.join(", ")}"),
+
+const SizedBox(height: 8),
+
+Text("Payment : $payment"),
+
+const SizedBox(height: 8),
+
+const Text(
+  "Status : PAID ✅",
+  style: TextStyle(
+    color: Colors.green,
+    fontWeight: FontWeight.bold,
+  ),
+),
                 const SizedBox(height: 25),
                 FilledButton(
                   onPressed: () {
@@ -2188,10 +2844,11 @@ class _QueueScreenState extends State<QueueScreen> {
 
         myTickets.add({
           "title": widget.movieTitle,
-          "bookingId":
-              "TX-2026-${(myTickets.length + 1).toString().padLeft(3, '0')}",
+          "id": "TX-2026-${(myTickets.length + 1).toString().padLeft(3, '0')}",
+          "cinema": widget.cinema,
+          "seat": widget.seats.join(", "),
+          "seats": widget.seats,
           "payment": widget.payment,
-          "seat": widget.totalSeat,
         });
 
         Navigator.pushReplacement(
@@ -2199,8 +2856,10 @@ class _QueueScreenState extends State<QueueScreen> {
           MaterialPageRoute(
             builder: (_) => TicketScreen(
               payment: widget.payment,
-              totalSeat: widget.totalSeat,
+              seats: widget.seats,
               movieTitle: widget.movieTitle,
+              bookingId: "TX-2026-${myTickets.length.toString().padLeft(3, '0')}",
+              cinema: widget.cinema,
             ),
           ),
         );
@@ -2332,17 +2991,21 @@ class _MyTicketScreenState extends State<MyTicketScreen> {
                   child: ListTile(
                     leading: const Icon(Icons.confirmation_number),
                    title: Text(ticket["title"]),
-subtitle: Text("Booking ID : ${ticket["bookingId"]}"),
+subtitle: Text("Booking ID : ${ticket["id"]}"),
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => TicketScreen(
-                            movieTitle: ticket["title"],
-                            payment: "GoPay",
-                            totalSeat: 1,
-                          ),
+                        builder: (_) => TicketScreen(
+  movieTitle: ticket["title"],
+  payment: ticket["payment"],
+  seats: List<String>.from(ticket["seats"]),
+
+  bookingId: ticket["id"],
+
+  cinema: ticket["cinema"],
+),
                         ),
                       );
                     },
@@ -2360,3 +3023,390 @@ subtitle: Text("Booking ID : ${ticket["bookingId"]}"),
   }
 }
 
+class AdminScreen extends StatelessWidget {
+  const AdminScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+  appBar: AppBar(
+    title: const Text("Admin Dashboard"),
+
+    actions: [
+
+      IconButton(
+
+        icon: const Icon(Icons.logout),
+
+        onPressed: () async {
+
+  final logout = await showDialog<bool>(
+    context: context,
+    builder: (_) {
+      return AlertDialog(
+        title: const Text("Logout"),
+        content: const Text(
+          "Are you sure you want to logout?",
+        ),
+        actions: [
+
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, false);
+            },
+            child: const Text("Cancel"),
+          ),
+
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+            child: const Text("Logout"),
+          ),
+
+        ],
+      );
+    },
+  );
+
+  if (logout == true) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const LoginScreen(),
+      ),
+      (route) => false,
+    );
+  }
+},
+
+      ),
+
+    ],
+
+  ),
+
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+
+          const Text(
+            "Welcome Admin 👋",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 25),
+
+          Card(
+            child: ListTile(
+  leading: const Icon(Icons.movie),
+  title: const Text("Manage Movies"),
+  subtitle: const Text("Add, edit or delete movies"),
+
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const ManageMoviesScreen(),
+      ),
+    );
+  },
+),
+          ),
+
+          Card(
+            child: ListTile(
+  leading: const Icon(Icons.confirmation_number),
+  title: const Text("View Tickets"),
+  subtitle: const Text("See all bookings"),
+
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const AdminTicketsScreen(),
+      ),
+    );
+  },
+),
+          ),
+
+          Card(
+            child: ListTile(
+  leading: const Icon(Icons.people),
+  title: const Text("Users"),
+  subtitle: const Text("Registered accounts"),
+
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const UsersScreen(),
+      ),
+    );
+  },
+),
+          ),
+
+        ],
+      ),
+    );
+  }
+}
+
+class AdminTicketsScreen extends StatelessWidget {
+  const AdminTicketsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("All Bookings"),
+      ),
+
+      body: myTickets.isEmpty
+          ? const Center(
+              child: Text("No bookings yet"),
+            )
+          : ListView.builder(
+              itemCount: myTickets.length,
+              itemBuilder: (context, index) {
+
+                final ticket = myTickets[index];
+
+                return Card(
+                  margin: const EdgeInsets.all(10),
+
+                  child: ListTile(
+
+                    leading: const Icon(
+                      Icons.confirmation_number,
+                      size: 35,
+                    ),
+
+                    title: Text(ticket["title"]),
+
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        Text("Booking ID : ${ticket["id"]}"),
+
+                        Text("Cinema : ${ticket["cinema"]}"),
+
+                        Text("Seat : ${ticket["seat"]}"),
+
+                        Text("Payment : ${ticket["payment"]}"),
+
+                      ],
+                    ),
+
+                  ),
+                );
+              },
+            ),
+    );
+  }
+}
+
+class AddMovieScreen extends StatefulWidget {
+  final Movie? movie;
+  final int? index;
+
+  const AddMovieScreen({
+    super.key,
+    this.movie,
+    this.index,
+  });
+
+  @override
+  State<AddMovieScreen> createState() => _AddMovieScreenState();
+}
+
+class _AddMovieScreenState extends State<AddMovieScreen> {
+
+  final titleController = TextEditingController();
+  final posterController = TextEditingController();
+  final backdropController = TextEditingController();
+  final genreController = TextEditingController();
+  final durationController = TextEditingController();
+  final ratingController = TextEditingController();
+  final synopsisController = TextEditingController();
+  final castController = TextEditingController();
+
+@override
+void initState() {
+  super.initState();
+
+  if (widget.movie != null) {
+    titleController.text = widget.movie!.title;
+    posterController.text = widget.movie!.poster;
+    backdropController.text = widget.movie!.backdrop;
+    genreController.text = widget.movie!.genre;
+    durationController.text = widget.movie!.duration;
+    ratingController.text = widget.movie!.rating.toString();
+    synopsisController.text = widget.movie!.synopsis;
+    castController.text = widget.movie!.cast.join(", ");
+  }
+}
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    posterController.dispose();
+    backdropController.dispose();
+    genreController.dispose();
+    durationController.dispose();
+    ratingController.dispose();
+    synopsisController.dispose();
+    castController.dispose();
+    super.dispose();
+  }
+
+  @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+     title: Text(
+  widget.movie == null
+      ? "Add Movie"
+      : "Edit Movie",
+),
+    ),
+    body: Padding(
+      padding: const EdgeInsets.all(20),
+      child: ListView(
+        children: [
+
+          TextField(
+            controller: titleController,
+            decoration: const InputDecoration(
+              labelText: "Movie Title",
+            ),
+          ),
+
+          const SizedBox(height: 15),
+
+          TextField(
+            controller: posterController,
+            decoration: const InputDecoration(
+              labelText: "Poster URL / Asset Path",
+            ),
+          ),
+
+          const SizedBox(height: 15),
+
+          TextField(
+            controller: backdropController,
+            decoration: const InputDecoration(
+              labelText: "Backdrop URL / Asset Path",
+            ),
+          ),
+
+          const SizedBox(height: 15),
+
+          TextField(
+            controller: genreController,
+            decoration: const InputDecoration(
+              labelText: "Genre",
+            ),
+          ),
+
+          const SizedBox(height: 15),
+
+          TextField(
+            controller: durationController,
+            decoration: const InputDecoration(
+              labelText: "Duration",
+            ),
+          ),
+
+          const SizedBox(height: 15),
+
+          TextField(
+            controller: ratingController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: "Rating",
+            ),
+          ),
+
+          const SizedBox(height: 15),
+
+          TextField(
+            controller: synopsisController,
+            maxLines: 4,
+            decoration: const InputDecoration(
+              labelText: "Synopsis",
+            ),
+          ),
+
+          const SizedBox(height: 15),
+
+          TextField(
+            controller: castController,
+            decoration: const InputDecoration(
+              labelText: "Cast (pisahkan dengan koma)",
+            ),
+          ),
+
+          const SizedBox(height: 30),
+
+          FilledButton(
+  onPressed: () {
+
+    if (titleController.text.trim().isEmpty ||
+        posterController.text.trim().isEmpty ||
+        backdropController.text.trim().isEmpty ||
+        genreController.text.trim().isEmpty ||
+        durationController.text.trim().isEmpty ||
+        ratingController.text.trim().isEmpty ||
+        synopsisController.text.trim().isEmpty ||
+        castController.text.trim().isEmpty) {
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please fill all fields."),
+        ),
+      );
+      return;
+    }
+
+   final newMovie = Movie(
+  title: titleController.text.trim(),
+  poster: posterController.text.trim(),
+  backdrop: backdropController.text.trim(),
+  genre: genreController.text.trim(),
+  duration: durationController.text.trim(),
+  rating: double.tryParse(ratingController.text) ?? 0,
+  synopsis: synopsisController.text.trim(),
+  cast: castController.text
+      .split(",")
+      .map((e) => e.trim())
+      .toList(),
+);
+
+if (widget.movie == null) {
+  movies.add(newMovie);
+} else {
+  movies[widget.index!] = newMovie;
+}
+
+    Navigator.pop(context);
+  },
+  child: Text(
+  widget.movie == null
+      ? "Add Movie"
+      : "Save Changes",
+),
+),
+
+        ],
+      ),
+    ),
+  );
+}
+}
