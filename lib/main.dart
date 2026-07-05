@@ -647,6 +647,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final email = TextEditingController();
   final password = TextEditingController();
 
+    bool obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
 
@@ -691,17 +693,31 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 20),
 
-              TextField(
-                controller: password,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  prefixIcon: const Icon(Icons.lock),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-              ),
+             TextField(
+  controller: password,
+  obscureText: obscurePassword,
+  decoration: InputDecoration(
+    labelText: "Password",
+    prefixIcon: const Icon(Icons.lock),
+
+    suffixIcon: IconButton(
+      icon: Icon(
+        obscurePassword
+            ? Icons.visibility_off
+            : Icons.visibility,
+      ),
+      onPressed: () {
+        setState(() {
+          obscurePassword = !obscurePassword;
+        });
+      },
+    ),
+
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+  ),
+),
 
               const SizedBox(height: 30),
 
@@ -961,6 +977,8 @@ class _CreateAccountScreenState
   final email = TextEditingController();
   final password = TextEditingController();
 
+  bool obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
 
@@ -996,13 +1014,24 @@ class _CreateAccountScreenState
             const SizedBox(height: 20),
 
             TextField(
-              controller: password,
-              obscureText: true,
-              decoration: const InputDecoration(
-                labelText: "Password",
-              ),
-            ),
-
+  controller: password,
+  obscureText: obscurePassword,
+  decoration: InputDecoration(
+    labelText: "Password",
+    suffixIcon: IconButton(
+      icon: Icon(
+        obscurePassword
+            ? Icons.visibility_off
+            : Icons.visibility,
+      ),
+      onPressed: () {
+        setState(() {
+          obscurePassword = !obscurePassword;
+        });
+      },
+    ),
+  ),
+),
             const SizedBox(height: 35),
 
             FilledButton(
